@@ -1,8 +1,6 @@
 import { Controller, Get, Render, Req, UseGuards } from '@nestjs/common';
 import { RouterGuard } from '@app/guards/router.guard';
 import { Request } from 'express'
-import { QueryParams } from '@app/decorators/params.decorator';
-import { IRequest } from '@app/interfaces/request.interface';
 
 @Controller()
 export class RouterController {
@@ -15,7 +13,7 @@ export class RouterController {
    */
     @Get('login')
     @Render('index')
-    login(@Req() req: IRequest) {
+    login(@Req() req: Request) {
         if (req.isLogin) {
             // 重定向
             return { redirectUrl: '/' }

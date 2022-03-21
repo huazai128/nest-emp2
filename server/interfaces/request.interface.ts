@@ -6,7 +6,19 @@ export interface HttpRequest {
     apiTransferType?: ConfigServer['apiPrefix']
 }
 
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace Express {
+        interface Request {
+            isLogin: boolean
+        }
 
-export interface IRequest extends Request {
-    isLogin: boolean
+        interface AuthenticatedRequest extends Request {
+            user: User;
+        }
+
+        interface UnauthenticatedRequest extends Request {
+            user?: undefined;
+        }
+    }
 }

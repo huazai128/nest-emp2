@@ -39,7 +39,7 @@ export const QueryParams = createParamDecorator((field: keyof QueryParamsResult,
     // 获取IP
     const ip = getServerIp()
     // 只有鉴权配置了，才能访问这个属性 不然会报错的
-    // const isAuthenticated = request.isAuthenticated()
+    const isAuthenticated = request.isAuthenticated()
 
 
     const visitor: QueryVisitor = {
@@ -57,7 +57,7 @@ export const QueryParams = createParamDecorator((field: keyof QueryParamsResult,
         params: (!!pUlr && { transformUrl: pUlr, transferData: { ...otherParams, userId: user.userId } }) || {},
         query: (!!qUlr && { transformUrl: qUlr, transferData: { ...otherQuery, userId: user.userId } }) || {},
         cookies: request.cookies,
-        // isAuthenticated: isAuthenticated,
+        isAuthenticated: isAuthenticated,
         visitor,
         request,
     }

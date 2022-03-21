@@ -1,6 +1,6 @@
-import { IRequest } from '@app/interfaces/request.interface';
 import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
 import { get } from 'lodash';
+import { Request } from 'express'
 
 /**
  * session 解析
@@ -9,8 +9,8 @@ import { get } from 'lodash';
  * @implements {PipeTransform<IRequest, IRequest>}
  */
 @Injectable()
-export class SessionPipe implements PipeTransform<IRequest, IRequest> {
-    transform(req: IRequest, metadata: ArgumentMetadata): IRequest {
+export class SessionPipe implements PipeTransform<Request, Request> {
+    transform(req: Request, metadata: ArgumentMetadata): Request {
         const user = get(req, 'session.user') || {}
         req.isLogin = !!user.userId
         return req
