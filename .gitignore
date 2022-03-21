@@ -1,6 +1,7 @@
 node_modules
 yarn-error.log
 dist
+server/dev.config.ts
 .DS_Store
 yarn.lock
 yarn-debug.lock
