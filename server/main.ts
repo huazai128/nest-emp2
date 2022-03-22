@@ -45,7 +45,6 @@ async function bootstrap() {
     app.use(morgan(':remote-addr - [:userId] - :remote-user ":method :url HTTP/:http-version" ":referrer" ":user-agent" :status :res[content-length] - :response-time ms'))
 
     app.useGlobalFilters(new HttpExceptionFilter())
-
     app.useGlobalInterceptors(new TransformInterceptor(), new LoggingInterceptor(), new ErrorInterceptor())
 
     await app.listen(APP.PORT);

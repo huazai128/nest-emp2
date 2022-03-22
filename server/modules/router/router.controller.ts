@@ -1,6 +1,8 @@
 import { Controller, Get, Render, Req, UseGuards } from '@nestjs/common';
 import { RouterGuard } from '@app/guards/router.guard';
 import { Request } from 'express'
+import { SessionPipe } from '@app/pipes/session.pipe';
+import { QueryParams } from '@app/decorators/params.decorator';
 
 @Controller()
 export class RouterController {
@@ -13,7 +15,7 @@ export class RouterController {
    */
     @Get('login')
     @Render('index')
-    login(@Req() req: Request) {
+    login(@QueryParams('request', new SessionPipe()) req: Request) {
         if (req.isLogin) {
             // 重定向
             return { redirectUrl: '/' }
@@ -29,7 +31,7 @@ export class RouterController {
      * @memberof AppController
      */
     @Get('error')
-    @Render('../error')
+    @Render('error')
     getError() {
         return { msg: '1212' }
     }
@@ -41,7 +43,7 @@ export class RouterController {
      * @memberof AppController
      */
     @UseGuards(RouterGuard)
-    @Get('*')
+    @Get()
     @Render('index')
     getTest(@Req() req: Request) {
         return { data: 12 }

@@ -38,9 +38,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
             data.error = data.error || `Not found`
             data.message = data.message || `Invalid API: ${request.method} > ${request.url}`
         }
-
         const isUnAuth = UnAuthStatus.includes(resultStatus)
-        
+
         if (isUnAuth && !request.url.includes('login')) {
             return response.redirect('login')
         } else {
