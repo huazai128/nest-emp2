@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Response, Request } from 'express'
 import { HttpResponseSuccess, ResponseStatus } from '@app/interfaces/response.interface';
-import { AuthService } from '@app/modules/auth/auth.service';
 
 /**
  * 拦截
