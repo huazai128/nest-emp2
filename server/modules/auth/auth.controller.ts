@@ -22,7 +22,8 @@ export class AuthController {
     public async adminLogin(@Req() req: Request, @Body(new TransformPipe()) data: HttpRequest, @Res() res: Response) {
         const { access_token, token, ...result } = await this.authService.login(data)
         res.cookie('jwt', access_token);
-        (req.session as any).user = result
+        res.cookie('userId',result.userId);
+        req.session.user = result;
         return res.status(200).send({
             result: result,
             status: ResponseStatus.Success,

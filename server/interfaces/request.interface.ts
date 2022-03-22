@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+import { User } from "@app/modules/auth/auth.interface";
 import { ConfigServer } from "./config.interface";
-import { Request } from 'express'
 export interface HttpRequest {
     transformUrl: string
     transferData: Record<string, any>
@@ -11,8 +12,8 @@ declare global {
     namespace Express {
         interface Request {
             isLogin: boolean
-
         }
+       
 
         interface AuthenticatedRequest extends Request {
             user: User;
@@ -23,3 +24,9 @@ declare global {
         }
     }
 }
+
+declare module 'express-session' {
+    export interface SessionData {
+      user: User
+    }
+  }
