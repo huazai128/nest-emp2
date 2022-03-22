@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Response, Request } from 'express'
 import { HttpResponseSuccess, ResponseStatus } from '@app/interfaces/response.interface';
+import { getResponsorOptions } from '@app/decorators/responsor.decorator';
 
 /**
  * 拦截
@@ -23,7 +24,9 @@ export class TransformInterceptor<T>
     intercept(context: ExecutionContext, next: CallHandler<T>): Observable<T | HttpResponseSuccess<T>> | any {
         const req = context.switchToHttp().getRequest<Request>();
         const res = context.switchToHttp().getResponse<Response>()
-        const isApi = req.url.includes('/api/')
+        const target = context.getHandler()
+        const { isApi } = getResponsorOptions(target)
+        
         // 即时刷新session过期时间
         req.session.touch();
         if (!isApi) {

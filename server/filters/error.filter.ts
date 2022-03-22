@@ -18,13 +18,15 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
         const status = exception.getStatus && exception.getStatus() || HttpStatus.INTERNAL_SERVER_ERROR;
-        const isApi = request.url.includes('/api/')
+        let isApi = request.url.includes('/api/') 
 
-        const errorResponse: ExceptionInfo = exception.getResponse && exception.getResponse() as ExceptionInfo
-        const errorMessage = lodash.isString(errorResponse) ? (errorResponse as any).message : errorResponse
+        let errorResponse: ExceptionInfo = !!exception.getResponse && exception.getResponse() as ExceptionInfo
+        errorResponse = (lodash.isObject(errorResponse) && (errorResponse as any).response) ? (errorResponse as any).response : (errorResponse as any).message;
+        const errorMessage = lodash.isObject(errorResponse) ? (errorResponse as any).message : errorResponse
         const errorInfo = lodash.isObject(errorResponse) ? (errorResponse as any).error : null
         const isChildrenError = errorInfo && errorInfo.status && errorInfo.message
         const resultStatus = isChildrenError ? errorInfo.status : status
+        isApi = (errorResponse as any).isApi
 
         const data: HttpResponseError = {
             status: resultStatus,
@@ -41,6 +43,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const isUnAuth = UnAuthStatus.includes(resultStatus)
 
         if (isUnAuth && !request.url.includes('login')) {
+            request.session.destroy(() => {
+                response.clearCookie('jwt');
+            });
             return response.redirect('login')
         } else {
             return isApi ? response.status(status).json(data) : response.redirect('error')

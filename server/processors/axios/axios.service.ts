@@ -101,6 +101,7 @@ export class AxiosService {
                     }, err.errCode)
                 } else {
                     throw new BadRequestException({
+                        isApi: true,
                         status: err.errCode,
                         message: err.msg || err.stack
                     }, err.errCode)

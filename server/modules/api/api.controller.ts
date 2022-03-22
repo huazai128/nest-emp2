@@ -1,4 +1,5 @@
 import { QueryParams } from '@app/decorators/params.decorator';
+import { Responsor } from '@app/decorators/responsor.decorator';
 import { ApiGuard } from '@app/guards/api.guard';
 import { HttpRequest } from '@app/interfaces/request.interface';
 import { TransformPipe } from '@app/pipes/transform.pipe';
@@ -17,6 +18,7 @@ export class ApiConstroller {
      * @memberof ApiConstroller
      */
     @UseGuards(ApiGuard)
+    @Responsor.api()
     @Get('transform')
     getTransform(@QueryParams('query', new TransformPipe()) data: HttpRequest) {
         return this.apiService.get(data)
@@ -29,6 +31,7 @@ export class ApiConstroller {
      * @memberof ApiConstroller
      */
     @UseGuards(ApiGuard)
+    @Responsor.api()
     @Post('transform')
     postTransform(@Body(new TransformPipe()) data: HttpRequest) {
         return this.apiService.post(data)
