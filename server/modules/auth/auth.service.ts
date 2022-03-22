@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { HttpRequest } from "@app/interfaces/request.interface";
 import { AxiosService } from "@app/processors/axios/axios.service";
-import { User } from "./auth.interface";
 import { AUTH, config } from "@app/config";
 import { JwtService } from '@nestjs/jwt'
 
@@ -44,7 +43,7 @@ export class AuthService {
      * @memberof AuthService
      */
     public async login({ transformUrl, transferData }: HttpRequest): Promise<any> {
-        const res = await this.axiosService.post<User>(transformUrl, transferData) as any
+        const res = await this.axiosService.post(transformUrl, transferData) as any
         const token = this.creatToken({ usernmae: res.account, userId: res.userId })
         return { ...res, ...token }
     }
@@ -58,7 +57,7 @@ export class AuthService {
      */
     public async findById(id): Promise<any> {
         const url = config.apiPrefix.baseApi + '/user/info'
-        const res = await this.axiosService.get<User>(url, { params: { id: id } })
+        const res = await this.axiosService.get(url, { params: { id: id } })
         return res
     }
 }
