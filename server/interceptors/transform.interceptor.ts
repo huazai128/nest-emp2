@@ -25,6 +25,8 @@ export class TransformInterceptor<T>
         const req = context.switchToHttp().getRequest<Request>();
         const res = context.switchToHttp().getResponse<Response>()
         const isApi = req.url.includes('/api/')
+        // 即时刷新session过期时间
+        req.session.touch();
         if (!isApi) {
             res.contentType('html')
         }
