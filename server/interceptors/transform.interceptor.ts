@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Response } from 'express'
+import { Response, Request } from 'express'
 import { HttpResponseSuccess, ResponseStatus } from '@app/interfaces/response.interface';
 
 /**

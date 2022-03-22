@@ -11,6 +11,7 @@ declare global {
     namespace Express {
         interface Request {
             isLogin: boolean
+
         }
 
         interface AuthenticatedRequest extends Request {

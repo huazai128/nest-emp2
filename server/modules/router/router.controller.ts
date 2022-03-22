@@ -22,7 +22,6 @@ export class RouterController {
         } else {
             return { data: 121212 }
         }
-
     }
 
     /**
