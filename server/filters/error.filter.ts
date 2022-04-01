@@ -19,10 +19,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
-        const status = exception.getStatus && exception.getStatus() || HttpStatus.INTERNAL_SERVER_ERROR;
+        const status = exception.getStatus?.() || HttpStatus.INTERNAL_SERVER_ERROR;
         let isApi = request.url.includes('/api/') 
 
-        let errorResponse: ExceptionInfo = !!exception.getResponse && exception.getResponse() as ExceptionInfo
+        let errorResponse: ExceptionInfo =  exception.getResponse?.() as ExceptionInfo
         errorResponse = get(errorResponse, 'response') || errorResponse;
         const errorMessage = get(errorResponse, 'message') || errorResponse
         const errorInfo = get(errorResponse, 'error')  || null
@@ -48,7 +48,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             request.session.destroy(() => {
                 logger.info('session已清除')
             });
-            request.cookies?.jwt && response.clearCookie('jwt');
+            response.clearCookie('jwt');
             return response.redirect('login')
         } else {
             return isApi ? response.status(status).json(data) : response.redirect('error')
