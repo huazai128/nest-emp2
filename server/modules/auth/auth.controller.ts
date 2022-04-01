@@ -24,7 +24,7 @@ export class AuthController {
     public async adminLogin(@Req() req: Request, @Body(new TransformPipe()) data: HttpRequest, @Res() res: Response) {
         const { access_token, token, ...result } = await this.authService.login(data)
         res.cookie('jwt', access_token);
-        res.cookie('userId',result.userId);
+        res.cookie('userId', result.userId);
         req.session.user = result;
         return res.status(200).send({
             result: result,
@@ -34,7 +34,7 @@ export class AuthController {
     }
 
     /**
-     *
+     * 为了测试为守卫的路由下接口房屋
      * @param {string} id
      * @return {*} 
      * @memberof AuthController
