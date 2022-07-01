@@ -59,7 +59,7 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
-    "@efox/emp": "^2.0.3",
+    "@efox/emp": "^2.2.3",
     "@nestjs/cli": "^8.2.3",
     "@nestjs/schematics": "^8.0.8",
     "@nestjs/testing": "^8.2.3",
