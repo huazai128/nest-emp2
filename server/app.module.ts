@@ -15,6 +15,8 @@ import { AxiosModule } from '@app/processors/axios/axios.module';
 // middlewares
 import { CorsMiddleware } from '@app/middlewares/core.middleware';
 import { OriginMiddleware } from '@app/middlewares/origin.middleware';
+import { DevMiddleware } from '@app/middlewares/dev.middleware';
+
 
 // API 
 import { ApiModule } from '@app/modules/api/api.module';
@@ -52,6 +54,7 @@ export class AppModule implements NestModule {
                     store: new (RedisStore(session))({ client: this.redis }),
                     ...SESSION
                 }),
+                DevMiddleware
             )
             .forRoutes('*');
     }

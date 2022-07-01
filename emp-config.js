@@ -16,7 +16,7 @@ module.exports = defineConfig(({mode}) => {
       outDir: join(__dirname, "./dist/client")
     },
     server: {
-      port: 8001,
+      port: 8008,
       devMiddleware: { // 这里是开启 本地访问不了
         index: true,
         mimeTypes: { phtml: 'text/html' },
