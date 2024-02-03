@@ -7,8 +7,8 @@ export interface ConfigServer {
     redisConf: {
         port: number,
         host: string,
-        no_ready_check: boolean,
-        password: string,
+        no_ready_check?: boolean,
+        password?: string,
         defaultCacheTTL?: number
         username?: string
     }

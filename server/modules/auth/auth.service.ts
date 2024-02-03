@@ -57,7 +57,11 @@ export class AuthService {
      */
     public async findById(id): Promise<any> {
         const url = config.apiPrefix.baseApi + '/user/info'
-        const res = await this.axiosService.get(url, { params: { id: id } })
-        return res
+        // const res = await this.axiosService.get(url, { params: { id: id } })
+        return {
+            userId: '6177ad66d32b52cbf5bd8ac8',
+            username: 'admin'
+        }
+        // return res
     }
 }

@@ -8,14 +8,14 @@ const config: ConfigServer = {
 
     // 代理接口域名
     apiPrefix: {
-        baseApi: 'http://172.25.230.139:3000',
+        baseApi: 'http://192.168.0.4:3004',
     },
 
     redisConf: {
-        'port': redisConf.port,
-        'host': redisConf.host,
-        'no_ready_check': true,
-        'password': redisConf.password,
+        port: 10121,
+        host: '10.130.87.26', // https://s.sysop.duowan.com/commonComps/dbms/manage/26435/instances/overview
+        no_ready_check: true,
+    
     },
 
 
